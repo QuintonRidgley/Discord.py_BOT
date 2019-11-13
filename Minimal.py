@@ -6,7 +6,7 @@ from discord.ext import commands, tasks
 from itertools import cycle
 
 client = commands.Bot(command_prefix = '.')
-status = cycle(['Commands | .help', 'Try | .clear'])
+status = cycle(['Commands | .help', 'Try | .clear', 'Try | .ban', 'Try | .kick'])
 
 @client.event
 async def on_ready():
@@ -28,21 +28,13 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
 	client.unload_extension(f'cogs.{extension}')
 
+@client.command()
+async def reload(ctx, extension):
+	client.unload_extension(f'cogs.{extension}')
+	client.load_extension(f'cogs.{extension}')
+
 for filename in os.listdir('./cogs'):
 	if filename.endswith('.py'):
 		client.load_extension(f'cogs.{filename[:-3]}')
 
-#Commands
-
-#@client.command(name='kick')
-#@commands.has_permissons(kick_members=True)
-#async def kick(ctx, member : discord.Member, *, reason=None):
-#	await member.kick(reason=reason)
-
-#@client.command(name='ban')
-#@commands.has_permissons(ban_members=True)
-#async def ban(ctx, member : discord.Member, *, reason=None):
-#	await member.ban(reason=reason)
-
-
-client.run('MY_TOKEN')
+client.run('NjQzMTQ0NjIwNDYwNzM2NTEy.Xct1sA.qduSaqf3vSRPCdavNxuVzLliJ0I')
